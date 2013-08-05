@@ -139,6 +139,7 @@ module Urbanairship
         start_time = Time.now
         response = http_client.request(request)
         log_request_and_response(request, response, Time.now - start_time)
+        raise "Urbanairship returned HTTP error #{response.code}" unless response.code.to_i == 200
         Urbanairship::Response.wrap(response)
       end
     rescue Timeout::Error
